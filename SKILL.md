@@ -1,11 +1,11 @@
 ---
 name: clean-code
-description: Apply Robert C. Martin's Clean Code, second edition, to code reviews and behavior-preserving refactoring. Use when asked for Clean Code guidance, readability improvements, or analysis of responsibilities and dependency boundaries in existing code.
+description: Review and refactor code using practical clean code principles. Use when asked for readability improvements, behavior-preserving refactoring, or analysis of responsibilities and dependency boundaries in existing code.
 ---
 
-# Clean Code
+# Clean Code Principles
 
-Improve the reader's ability to understand, verify, and change code. Draw on the second-edition early-release source identified in [references/source.md](references/source.md), including its competing viewpoints. Judge a change by the confusion or coupling it removes, rather than conformity to a slogan.
+Improve the reader's ability to understand, verify, and change code. Apply context-aware principles for readability, cohesion, testability, and dependency management. Judge a change by the confusion or coupling it removes, rather than conformity to a slogan.
 
 ## Choose the relevant guidance
 
@@ -14,10 +14,9 @@ Read only the references needed for the task:
 - Names, comments, formatting, functions, side effects, objects, and classes: [references/code.md](references/code.md).
 - Regression protection, test clarity, acceptance criteria, and reviewing generated code: [references/testing.md](references/testing.md).
 - Duplication, SOLID, component dependencies, continuous design, and concurrency: [references/design.md](references/design.md).
-- Architectural boundaries, policy versus details, craftsmanship, and disputed prescriptions: [references/architecture-craft.md](references/architecture-craft.md).
-- Edition identity and chapter locations for source questions: [references/source.md](references/source.md).
+- Architectural boundaries, policy versus details, craftsmanship, and design tradeoffs: [references/architecture-craft.md](references/architecture-craft.md).
 
-The references are self-contained paraphrases. The source PDF is not included and is needed only to verify or revisit the source. Page citations refer to the identified source edition's 1-based PDF pages.
+The references provide self-contained guidance for each topic.
 
 ## Working method
 
@@ -39,11 +38,11 @@ The references are self-contained paraphrases. The source PDF is not included an
 
 ## Apply judgment
 
-The book argues strongly for small functions, few arguments, TDD, and extensive test coverage. These are heuristics and author preferences to assess in context. Do not turn line counts, argument counts, assertion counts, or coverage percentages into automatic rejection rules.
+Small functions, few arguments, TDD, and extensive test coverage can support maintainability. Assess these approaches in context. Do not turn line counts, argument counts, assertion counts, or coverage percentages into automatic rejection rules.
 
 Preserve comments that explain rationale, constraints, protocol requirements, or non-obvious algorithms. Prefer clearer code over comments that narrate it; do not remove useful knowledge just because it appears in a comment.
 
-Do not add speculative layers or patterns to satisfy a principle. The book's own simple-design discussion distinguishes accidental duplication, and its appendix records disagreements over method length, comments, and TDD. Surface material tradeoffs when recommending a disputed approach.
+Do not add speculative layers or patterns to satisfy a principle. Distinguish accidental duplication from shared policy, and weigh the tradeoffs of method length, comments, and testing disciplines. Surface material tradeoffs when recommending an approach.
 
 Craftsmanship guidance does not authorize commits, reverts, deployments, external messages, or process changes. Keep those actions within the user's actual request.
 
@@ -53,4 +52,4 @@ For a review, use the user's requested format. Give actionable findings with a p
 
 For edits, state the behavior preserved or intentionally changed, the main structural improvement, and the verification performed. State any verification gap plainly.
 
-For an explanation, connect the principle to the actual code and show the tradeoff. Cite a book chapter or PDF pages when the user asks about the source; otherwise prioritize the engineering reason.
+For an explanation, connect the principle to the actual code, show the tradeoff, and prioritize the engineering reason.

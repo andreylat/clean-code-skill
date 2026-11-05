@@ -1,36 +1,26 @@
 # Code, interfaces, and refactoring
 
-Source: *Clean Code*, second edition, early-release PDF, chapters 1-13. Page numbers below are 1-based PDF pages, not printed page numbers. These are operational paraphrases; context-dependent adaptations are identified explicitly.
-
 ## Clean in small, behavior-preserving steps
 
-Sources: chapter 1, p. 34; chapter 3, pp. 62-65 and 94-95; chapter 9, pp. 217-218.
-
-First establish the behavior that must remain stable. Alternate getting a small behavior working with improving its structure. Change one understandable element at a time, then run relevant checks. If a step breaks behavior, diagnose or undo that step before adding more transformations. Adaptation: preserve unrelated user work when undoing changes.
+First establish the behavior that must remain stable. Alternate getting a small behavior working with improving its structure. Change one understandable element at a time, then run relevant checks. If a step breaks behavior, diagnose or undo that step before adding more transformations. Preserve unrelated user work when undoing changes.
 
 Use local cleanup to reduce the next reader's effort. A better predicate name or isolated policy can be sufficient. Added structure also adds indirection and cognitive cost; stop when the next proposed abstraction lacks a concrete readability or change-isolation benefit.
 
 ## Names form a shared vocabulary
 
-Source: chapter 4, pp. 97-112.
-
 - Choose names that explain purpose, units, and meaningful distinctions. Similar concepts should use consistent terminology; different names should communicate real differences.
 - Use domain terms for business concepts and established technical terms for implementation concepts. An invented business metaphor can obscure a familiar algorithm.
 - Put related values in a meaningful enclosing concept when that removes ambiguity. Avoid repeating application or container context in every identifier.
-- Balance scope and familiarity. Short local names can be clear inside a tiny, conventional scope. Widely visible variables need more context. The book separately favors convenient short names for general public functions and descriptive longer names for narrowly scoped private helpers; this is a heuristic, not a renaming mandate.
-- Follow the language and team's established accessor, interface, and keyword-argument conventions even when they differ from the author's preferences.
+- Balance scope and familiarity. Short local names can be clear inside a tiny, conventional scope. Widely visible variables need more context. Convenient short names can suit general public functions, while narrowly scoped private helpers may need longer descriptions. Treat this as a heuristic, not a renaming mandate.
+- Follow the language and team's established accessor, interface, and keyword-argument conventions.
 
 ## Keep comments that convey otherwise missing information
 
-Source: chapter 5, pp. 114-124 and 128-138.
-
 Before explaining mechanics in prose, see whether a name, predicate, or small abstraction can express the same concept. Keep useful rationale, consequences, constraints from unchangeable APIs, required legal notices, and meaningful public API documentation. Check these statements against actual behavior; an explanatory comment can expose a defect rather than excuse it.
 
-Update comments with the code they describe. Remove obsolete history, redundant narration, and abandoned commented-out implementations when within scope; version control already retains history. The second edition changes its TODO advice: the author completes, removes, or moves unresolved work to a backlog before checking in. Adaptation: honor the repository's issue-tracking convention and authorized scope; do not silently discard unresolved requirements.
+Update comments with the code they describe. Remove obsolete history, redundant narration, and abandoned commented-out implementations when within scope; version control already retains history. Before checking in, resolve temporary TODOs by completing the work, eliminating the need, or tracking the unresolved requirement in the backlog. Honor the repository's issue-tracking convention and authorized scope; do not silently discard unresolved requirements.
 
 ## Extract concepts, then reassess their home
-
-Sources: chapter 7, pp. 167-175; chapter 10, pp. 249-250 and 280; chapter 11, pp. 281-287.
 
 Aim for a function whose name summarizes a coherent task and whose body works at a consistent abstraction level. Arrange the public operation and supporting helpers so readers can understand the policy before inspecting its details, subject to language declaration rules.
 
@@ -38,31 +28,23 @@ A meaningful extraction adds a name more abstract than its implementation. Extra
 
 ## Make coupling and side effects visible
 
-Sources: chapter 7, pp. 177-187; chapter 8, pp. 188-198 and 208-212; chapter 10, pp. 277-280.
-
 Treat positional arguments as coupling and opportunities for ordering mistakes. Group genuinely cohesive inputs or use named arguments; fewer parameters alone do not justify unrelated bundles or hidden dependencies. Boolean mode arguments often conceal different operations, but a genuine boolean setting need not become two methods. Prefer clear return values over surprising output parameters where idiomatic.
 
-Purity concerns observable behavior: internal local mutation can remain externally pure. Adaptation: do not move arguments into shared mutable fields merely to shorten a signature; consider reentrancy, object lifetime, and concurrent calls. Encapsulate paired resource acquisition and release without hiding externally observable changes.
+Purity concerns observable behavior: internal local mutation can remain externally pure. Do not move arguments into shared mutable fields merely to shorten a signature; consider reentrancy, object lifetime, and concurrent calls. Encapsulate paired resource acquisition and release without hiding externally observable changes.
 
-Command/query separation helps clarify intent, but combined operations such as removal-with-return may be appropriate. Preserve required atomicity and exception guarantees. The author prefers exceptions where suitable and explicitly accepts consistent error returns in languages such as Go. Follow the language's error model and keep recovery separate from normal processing when that improves clarity.
+Command/query separation helps clarify intent, but combined operations such as removal-with-return may be appropriate. Preserve required atomicity and exception guarantees. Use exceptions where suitable and consistent error returns in languages such as Go. Follow the language's error model and keep recovery separate from normal processing when that improves clarity.
 
 ## Merge duplication that changes together
-
-Source: chapter 8, pp. 198-208.
 
 Distinguish shared knowledge from coincidental similarity. Similar code serving different actors may need to evolve independently; merging it can couple unrelated policies. Code that must change together is a stronger extraction candidate, especially as its size or repetition grows. Tiny repeated initialization is not automatically worth an abstraction. Repeated traversal with varying behavior can use an idiomatic callback or strategy when that centralizes one structural responsibility.
 
 ## Choose objects or data by the expected direction of change
-
-Source: chapter 12, pp. 289-305.
 
 Objects hide representation behind behavior; DTOs deliberately expose data. Getters and setters do not by themselves create an abstraction. Prefer object dispatch when new variants should be added without changing existing operations. Prefer data plus procedures when a stable set of variants needs many new operations. A switch is therefore not intrinsically wrong.
 
 Apply Demeter to leaking object internals, not to the number of dots. Traversing an intentional DTO is different from navigating an object's private collaborators. For the latter, ask what operation the caller actually needs and place it with the object that owns the knowledge. Avoid hybrids that expose representation while also pretending to encapsulate behavior.
 
 ## Separate policy from implementation when change warrants it
-
-Source: chapter 13, pp. 306-317 and 324-326.
 
 Assess class cohesion through concrete reasons to change, including policies hidden inside method bodies. Extract a complex predicate to name it, then inspect which object's data it principally uses; move behavior when this reveals feature envy. Keep orchestration readable by delegating implementation specifics.
 

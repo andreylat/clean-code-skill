@@ -1,8 +1,8 @@
-# clean-code-skill
+# Clean Code Principles
 
-A reusable AI coding skill for code reviews and behavior-preserving refactoring, based on Robert C. Martin's *Clean Code*, second edition, early release.
+A reusable AI coding skill for code reviews and behavior-preserving refactoring using practical clean code principles.
 
-The skill favors concrete readability and maintenance improvements, small changes, and appropriate verification. It preserves the book's tradeoffs instead of enforcing universal limits on function length, arguments, or test coverage.
+The skill favors concrete readability and maintenance improvements, small changes, and appropriate verification. It treats function length, arguments, comments, and testing approaches as context-dependent choices.
 
 ## Use
 
@@ -21,6 +21,5 @@ Example prompts:
 - [Testing guidance](references/testing.md): behavioral confidence, clean tests, and acceptance criteria.
 - [Design guidance](references/design.md): duplication, SOLID, components, and concurrency.
 - [Architecture and craftsmanship](references/architecture-craft.md): boundaries and disputed tradeoffs.
-- [Source details](references/source.md): edition identity and PDF page references.
 
-The references contain operational paraphrases. The source book PDF is not included or required to use the skill.
+The references provide self-contained guidance with decision rules and practical tradeoffs.
